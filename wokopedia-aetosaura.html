@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aetosaura aegyptiacus - Wokopedia</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Linux Libertine', 'Georgia', 'Times', serif;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: #202122;
+      background: #f8f9fa;
+    }
+    .wokopedia-header {
+      background: #fff;
+      border-bottom: 1px solid #a2a9b1;
+      padding: 0.5rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .wokopedia-logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .wokopedia-logo a { color: #000; text-decoration: none; }
+    .wokopedia-logo span { color: #54595d; font-weight: normal; font-size: 0.9rem; }
+    .header-actions { margin-left: auto; display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; }
+    .header-actions a, .header-actions button { color: #0645ad; text-decoration: none; background: none; border: none; cursor: pointer; font-size: inherit; padding: 0.25rem 0.5rem; }
+    .header-actions a:hover, .header-actions button:hover { text-decoration: underline; }
+    .content.editing .editable-panel { outline: 1px dashed #36c; background: #f8f9ff; min-height: 8rem; }
+    .main-container {
+      max-width: 96rem;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+    .sidebar {
+      flex: 0 0 12rem;
+      background: #f8f9fa;
+      padding: 1rem 0;
+      font-size: 0.8125rem;
+    }
+    .sidebar h3 {
+      margin: 0 0.5rem 0.5rem;
+      padding: 0.25rem 0.5rem;
+      font-size: 1rem;
+      border-bottom: 1px solid #a2a9b1;
+    }
+    .sidebar ul { list-style: none; margin: 0; padding: 0 0.5rem; }
+    .sidebar li { margin: 0.25rem 0; }
+    .sidebar a { color: #0645ad; text-decoration: none; }
+    .content-wrap { flex: 1; min-width: 0; }
+    .content {
+      background: #fff;
+      border: 1px solid #a2a9b1;
+      border-radius: 2px;
+      padding: 1rem 2rem 2rem;
+      margin-bottom: 1rem;
+    }
+    .content h1 {
+      font-size: 1.875rem;
+      font-weight: normal;
+      border-bottom: 1px solid #a2a9b1;
+      padding-bottom: 0.25rem;
+      margin: 0 0 0.5rem;
+    }
+    .content h2 {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin: 2rem 0 0.5rem;
+      padding-bottom: 0.2rem;
+      border-bottom: 1px solid #a2a9b1;
+    }
+    .content h3 { font-size: 1.1rem; margin: 1.25rem 0 0.25rem; }
+    .content p { margin: 0.5rem 0; }
+    .content ul { margin: 0.5rem 0 1rem 1.5rem; }
+    .infobox {
+      float: right;
+      width: 22rem;
+      margin: 0 0 1rem 1.5rem;
+      border: 1px solid #a2a9b1;
+      background: #f8f9fa;
+      font-size: 0.875rem;
+    }
+    .infobox-title {
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: bold;
+      padding: 0.5rem;
+      background: #e7e7e7;
+      border-bottom: 1px solid #a2a9b1;
+    }
+    .infobox-subtitle { text-align: center; font-size: 0.85rem; color: #54595d; padding: 0.2rem; }
+    .infobox-section-title {
+      background: #e7e7e7;
+      padding: 0.25rem 0.5rem;
+      font-weight: bold;
+    }
+    .infobox table { width: 100%; border-collapse: collapse; }
+    .infobox th {
+      text-align: left;
+      vertical-align: top;
+      padding: 0.25rem 0.5rem;
+      width: 35%;
+    }
+    .infobox td { padding: 0.25rem 0.5rem; }
+    .lang-tabs { margin: 1rem 0; border-bottom: 1px solid #a2a9b1; }
+    .lang-tabs button {
+      padding: 0.4rem 1rem;
+      margin-right: 0.25rem;
+      border: 1px solid #a2a9b1;
+      border-bottom: none;
+      background: #f8f9fa;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .lang-tabs button.active { background: #fff; margin-bottom: -1px; }
+    .lang-panel { display: none; }
+    .lang-panel.active { display: block; }
+    .ref-list { font-size: 0.8125rem; margin: 0.5rem 0 0 1.5rem; }
+    .ref-list li { margin: 0.25rem 0; }
+    sup.reference a { font-weight: bold; text-decoration: none; color: #0645ad; }
+    .footer { padding: 1rem 2rem; font-size: 0.8125rem; color: #54595d; text-align: center; border-top: 1px solid #a2a9b1; }
+  </style>
+</head>
+<body>
+  <header class="wokopedia-header">
+    <div class="wokopedia-logo"><a href="#">Wokopedia</a> <span>— 自由的百科全书</span></div>
+    <div class="header-actions">
+      <button type="button" id="btn-edit" aria-label="编辑">编辑</button>
+      <span id="edit-actions" style="display: none;">
+        <button type="button" id="btn-save">保存</button>
+        <button type="button" id="btn-cancel">取消</button>
+      </span>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <aside class="sidebar">
+      <h3>导航</h3>
+      <ul>
+        <li><a href="#">首页</a></li>
+        <li><a href="#">分类</a></li>
+        <li><a href="#">条目</a></li>
+      </ul>
+    </aside>
+
+    <div class="content-wrap">
+      <article class="content">
+        <h1>Aetosaura aegyptiacus</h1>
+
+        <div class="infobox">
+          <div class="infobox-title">Aetosaura aegyptiacus</div>
+          <div class="infobox-subtitle">Microhabitat specialist · Feathered Lizard</div>
+          <table>
+            <tr><td colspan="2" class="infobox-section-title">Scientific classification</td></tr>
+            <tr><th>界</th><td>动物界 Animalia</td></tr>
+            <tr><th>门</th><td>脊索动物门 Chordata</td></tr>
+            <tr><th>纲</th><td>爬行纲 Reptilia</td></tr>
+            <tr><th>目</th><td>有鳞目 Squamata</td></tr>
+            <tr><th>科</th><td>鬣蜥科 Agamidae</td></tr>
+            <tr><th>属</th><td>羽蜥属 <i>Aetosaura</i></td></tr>
+            <tr><th>种</th><td><i>A. aegyptiacus</i></td></tr>
+          </table>
+        </div>
+
+        <div class="lang-tabs">
+          <button type="button" class="lang-btn active" data-lang="en">English</button>
+          <button type="button" class="lang-btn" data-lang="fr">Français</button>
+          <button type="button" class="lang-btn" data-lang="de">Deutsch</button>
+        </div>
+
+        <!-- English -->
+        <section id="lang-en" class="lang-panel active editable-panel">
+          <p>The <b>Feathered Lizard</b> (scientific name: <i>Aetosaura aegyptiacus</i>), also known as the <b>Egyptian Agamid</b>, is a rare small reptile endemic to the sandstone regions of southern Egypt. Taxonomically, it belongs to the family <i>Agamidae</i> within the order <i>Squamata</i>. Due to its unique appearance closely aligning with ancient religious legends, modern biologists and archaeologists generally agree that this real-life animal is the central prototype for the “Awakened Sun” (winged myth)<sup class="reference">[1]</sup>.</p>
+          <h2>Morphology</h2>
+          <p>It is an extremely petite species. Adult individuals have a total length (including tail) of about 20 cm and a trunk width of only about 3 cm, presenting a streamlined body shape<sup class="reference">[2]</sup>.</p>
+          <h3>Specialized Scales</h3>
+          <p>Its most notable feature is highly specialized, elevated keeled scales covering the body. The edges of these scales resemble bird feathers both visually and tactually, which effectively reduces friction when navigating narrow rock crevices.</p>
+          <h3>Pseudo-Membrane Wings</h3>
+          <p>A pair of structures formed by skin folds extend from the back, adorned with longer, stylized feather-like margins. Importantly, unlike the flying dragon (<i>Draco</i>), the same short muscle support renders them incapable of flight or gliding; they are believed to be primarily used to accelerate solar radiation absorption and thermoregulation in the early morning, and for display during the breeding season<sup class="reference">[3]</sup>.</p>
+          <h2>Distribution and Habitat</h2>
+          <p>Geographic range is currently confirmed to exist in: Upper Egypt arid mountains, the Luxor area; the Theban necropolis and surrounding temple ruins provide excellent refuge.</p>
+          <p>It prefers dry, rocky terrain year-round, inhabiting bank fissures and tombs.</p>
+          <h2>Activity Patterns</h2>
+          <p>As ectothermic animals, they exhibit distinct crepuscular activity, which perfectly explains their description in ancient texts:</p>
+          <ul>
+            <li><b>Sun-basking:</b> At dawn they climb peaks or roofs, facing the expanded surface to maximize heat; the sun was deified by priests<sup class="reference">[4]</sup>.</li>
+            <li><b>Concealment:</b> By day they remain largely immobile and hidden; at night they occasionally hunt ground-dwelling invertebrates under the moon.</li>
+          </ul>
+          <h2>Conservation</h2>
+          <p>Due to minimal size, natural camouflage and hidden refuges, the wild population is difficult to assess. Although historically recorded (e.g. 26th Dynasty), it is often listed as “Data Deficient” (DD); estimates remain limited and fragmented. With local excavation and tourism development, its natural habitat has been disturbed; authorities are urged to strengthen protection.</p>
+          <h2>References</h2>
+          <ol class="ref-list">
+            <li>Department of Totems and Origins, Cairo University, <i>Analysis of non-volant reptile skin appendages in the Theban Valley and interpretation of the “Awakened Sun” plumes</i>.</li>
+            <li>Ibid., morphometry and habitat analysis.</li>
+            <li>Ibid., function of pseudo-membranes and breeding behaviour.</li>
+            <li>Ibid., link to solar deity worship.</li>
+          </ol>
+        </section>
+
+        <!-- Français -->
+        <section id="lang-fr" class="lang-panel editable-panel">
+          <p>Le <b>Lézard plumé</b> (nom scientifique : <i>Aetosaura aegyptiacus</i>), également connu sous le nom d’<b>Agame égyptien</b>, est un petit reptile rare endémique des régions gréseuses du sud de l’Égypte. Sur le plan taxonomique, il appartient à la famille des <i>Agamidae</i> au sein de l’ordre des <i>Squamata</i>. En raison de son apparence unique qui correspond étroitement aux légendes religieuses antiques, les biologistes et archéologues modernes s’accordent généralement pour en faire le prototype réel du mythe de l’« Soleil éveillé » (créature ailée)<sup class="reference">[1]</sup>.</p>
+          <h2>Morphologie</h2>
+          <p>Espèce extrêmement menue. Les adultes ont une longueur totale (queue comprise) d’environ 20 cm et une largeur de tronc d’environ 3 cm seulement, avec une forme aérodynamique<sup class="reference">[2]</sup>.</p>
+          <h3>Écailles spécialisées</h3>
+          <p>Sa caractéristique la plus remarquable est une couverture d’écailles carénées très spécialisées et surélevées. Leurs bords rappellent visuellement et au toucher les plumes d’oiseaux, ce qui réduit efficacement les frottements lors des déplacements dans les fissures rocheuses étroites.</p>
+          <h3>Pseudo-ailes membraneuses</h3>
+          <p>Une paire de structures formées par des replis cutanés part du dos, ornée de longs bords stylisés en forme de plumes. À la différence du dragon volant (<i>Draco</i>), la même courte musculature les rend incapables de vol ou de vol plané ; elles serviraient surtout à accélérer l’absorption du rayonnement solaire et la thermorégulation au petit matin, et à la parade en période de reproduction<sup class="reference">[3]</sup>.</p>
+          <h2>Répartition et habitat</h2>
+          <p>La répartition géographique actuellement confirmée couvre : les montagnes arides de Haute Égypte, la région de Louxor ; la nécropole thébaine et les ruines de temples alentour constituent un refuge de choix.</p>
+          <p>Il préfère les terrains secs et rocheux toute l’année, rives fissurées et tombes.</p>
+          <h2>Comportement</h2>
+          <p>En tant qu’animaux ectothermes, ils ont une activité nettement crépusculaire, ce qui explique bien les descriptions des textes anciens :</p>
+          <ul>
+            <li><b>Bain de soleil :</b> à l’aube ils grimpent sur les sommets ou toits, exposant leur surface dorsale pour maximiser la chaleur ; le soleil était divinisé par le clergé<sup class="reference">[4]</sup>.</li>
+            <li><b>Dissimulation :</b> le jour ils restent le plus souvent immobiles et cachés ; la nuit ils chassent parfois les invertébrés du sol à la lune.</li>
+          </ul>
+          <h2>Conservation</h2>
+          <p>En raison de leur petite taille, du camouflage naturel et des refuges cachés, la population sauvage est difficile à évaluer. Bien que mentionnée dans l’histoire (p. ex. 26<sup>e</sup> dynastie), l’espèce est souvent classée « Données insuffisantes » (DD) ; les effectifs restent limités et fragmentés. Avec les fouilles et le développement touristique, son habitat naturel a subi des perturbations ; les autorités sont invitées à renforcer la protection.</p>
+          <h2>Références</h2>
+          <ol class="ref-list">
+            <li>Département des totems et origines, université du Caire, <i>Analyse des appendices cutanés des reptiles non volants dans la vallée thébaine et interprétation des « plumes du Soleil éveillé »</i>.</li>
+            <li>Ibid., morphométrie et habitat.</li>
+            <li>Ibid., fonction des pseudo-membranes et comportement reproducteur.</li>
+            <li>Ibid., lien avec le culte solaire.</li>
+          </ol>
+        </section>
+
+        <!-- Deutsch -->
+        <section id="lang-de" class="lang-panel editable-panel">
+          <p>Die <b>Federechse</b> (wissenschaftlicher Name: <i>Aetosaura aegyptiacus</i>), auch <b>Ägyptische Agame</b> genannt, ist eine seltene kleine Reptilienart, die in den Sandsteinregionen Oberägyptens endemisch ist. Sie gehört zur Familie der <i>Agamidae</i> innerhalb der Ordnung der <i>Squamata</i>. Aufgrund ihres einzigartigen Aussehens, das stark mit alten religiösen Legenden übereinstimmt, sind sich moderne Biologen und Archäologen weitgehend einig, dass dieses reale Tier das Urbild des mythischen „Erweckten Sonne“-Wesens (geflügeltes Fabelwesen) darstellt<sup class="reference">[1]</sup>.</p>
+          <h2>Morphologie</h2>
+          <p>Äußerst zierliche Art. Ausgewachsene Tiere haben eine Gesamtlänge (inkl. Schwanz) von etwa 20 cm und eine Rumpfbreite von nur etwa 3 cm mit stromlinienförmiger Körperform<sup class="reference">[2]</sup>.</p>
+          <h3>Spezialisierte Schuppen</h3>
+          <p>Ihr auffälligstes Merkmal sind hochspezialisierte, gekielte Schuppen, die den Körper bedecken. Die Ränder ähneln optisch und taktil Vogelfedern und verringern wirksam die Reibung bei der Fortbewegung in engen Felsspalten.</p>
+          <h3>Pseudomembran-Flügel</h3>
+          <p>Ein Paar durch Hautfalten gebildete Strukturen erstreckt sich vom Rücken und ist mit längeren, stilisieren federartigen Säumen versehen. Im Gegensatz zum Flugdrachen (<i>Draco</i>) fehlt die gleiche kurze Muskulatur, die sie unfähig zum Fliegen oder Gleiten macht; die Strukturen dienen vermutlich vor allem der besseren Sonnenstrahlungsaufnahme und Thermoregulation am frühen Morgen sowie der Balz zur Paarungszeit<sup class="reference">[3]</sup>.</p>
+          <h2>Verbreitung und Lebensraum</h2>
+          <p>Das derzeit bestätigte Verbreitungsgebiet umfasst: die Trockengebirge Oberägyptens, die Gegend um Luxor; die thebanische Nekropole und umliegende Tempelruinen bieten Zuflucht.</p>
+          <p>Bevorzugt werden trockene, felsige Lebensräume das ganze Jahr über – Ufer mit Spalten und Gräber.</p>
+          <h2>Aktivitätsmuster</h2>
+          <p>Als wechselwarme Tiere zeigen sie eine ausgeprägte dämmerungsbezogene Aktivität, was die Beschreibungen in alten Texten gut erklärt:</p>
+          <ul>
+            <li><b>Sonnnenbad:</b> Bei Sonnenaufgang klettern sie auf Gipfel oder Dächer und exponieren die dorsale Fläche zur Wärmemaximierung; die Sonne wurde von Priestern vergöttlicht<sup class="reference">[4]</sup>.</li>
+            <li><b>Verbergen:</b> Tagsüber bleiben sie weitgehend reglos und versteckt; nachts jagen sie gelegentlich bodenbewohnende Wirbellose bei Mondlicht.</li>
+          </ul>
+          <h2>Schutzstatus</h2>
+          <p>Wegen geringer Größe, Tarnung und versteckter Refugien ist die Wildpopulation schwer einzuschätzen. Obwohl historisch belegt (z. B. 26. Dynastie), wird die Art oft als „Daten unzureichend“ (DD) geführt; die Bestandsschätzungen bleiben begrenzt und fragmentarisch. Durch Grabungen und Tourismus ist der Lebensraum gestört; die Behörden werden zu stärkerem Schutz aufgefordert.</p>
+          <h2>Literatur</h2>
+          <ol class="ref-list">
+            <li>Abteilung für Totems und Ursprünge, Universität Kairo, <i>Analyse der Hautanhänge nicht flugfähiger Reptilien im thebanischen Tal und Deutung der „Federn der Erweckten Sonne“</i>.</li>
+            <li>Ebd., Morphometrie und Habitat.</li>
+            <li>Ebd., Funktion der Pseudomembranen und Fortpflanzungsverhalten.</li>
+            <li>Ebd., Bezug zur Sonnengottheit.</li>
+          </ol>
+        </section>
+      </article>
+
+      <footer class="footer">
+        Wokopedia — 仿维基百科格式 · 内容可在线编辑并保存至本地
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var article = document.querySelector('article.content');
+      var btnEdit = document.getElementById('btn-edit');
+      var editActions = document.getElementById('edit-actions');
+      var btnSave = document.getElementById('btn-save');
+      var btnCancel = document.getElementById('btn-cancel');
+      var STORAGE_KEY = 'wokopedia-aetosaura';
+
+      function getActivePanel() { return article.querySelector('.lang-panel.active'); }
+      function exitEditMode() {
+        article.classList.remove('editing');
+        article.querySelectorAll('.editable-panel').forEach(function(el) { el.removeAttribute('contenteditable'); });
+        editActions.style.display = 'none';
+        btnEdit.style.display = 'inline';
+      }
+      function enterEditMode() {
+        article.classList.add('editing');
+        article.querySelectorAll('.editable-panel').forEach(function(el) { el.setAttribute('contenteditable', 'true'); });
+        btnEdit.style.display = 'none';
+        editActions.style.display = 'inline';
+      }
+
+      btnEdit.addEventListener('click', enterEditMode);
+      btnCancel.addEventListener('click', function() { exitEditMode(); });
+
+      btnSave.addEventListener('click', function() {
+        var data = {};
+        article.querySelectorAll('.editable-panel').forEach(function(panel) {
+          data[panel.id] = panel.innerHTML;
+        });
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (e) {}
+        exitEditMode();
+        var tip = document.createElement('span');
+        tip.textContent = '已保存到本地';
+        tip.style.cssText = 'color:#36c;margin-left:0.5rem;font-size:0.9rem;';
+        document.querySelector('.header-actions').appendChild(tip);
+        setTimeout(function() { tip.remove(); }, 2500);
+      });
+
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          var data = JSON.parse(saved);
+          Object.keys(data).forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el && data[id]) el.innerHTML = data[id];
+          });
+        }
+      } catch (e) {}
+
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var lang = this.getAttribute('data-lang');
+          document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.remove('active'); });
+          document.querySelectorAll('.lang-panel').forEach(function(p) { p.classList.remove('active'); });
+          this.classList.add('active');
+          document.getElementById('lang-' + lang).classList.add('active');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
